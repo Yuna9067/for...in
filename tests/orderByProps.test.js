@@ -48,4 +48,42 @@ describe('orderByProps', () => {
 
     expect(orderByProps(obj, [])).toEqual(expected);
   });
+
+  test('ignores inherited properties (hasOwnProperty branch)', () => {
+    const proto = { inherited: 42 };
+    const obj = Object.create(proto);
+    obj.a = 1;
+    obj.b = 2;
+
+    const result = orderByProps(obj, []);
+
+    expect(result).toEqual([
+      { key: 'a', value: 1 },
+      { key: 'b', value: 2 }
+    ]);
+  });
+
+  test('splits keys into "in order" and "not in order"', () => {
+    const obj = { x: 1, y: 2, z: 3 };
+    const order = ['z'];
+
+    const result = orderByProps(obj, order);
+
+    expect(result).toEqual([
+      { key: 'z', value: 3 },
+      { key: 'x', value: 1 },
+      { key: 'y', value: 2 }
+    ]);
+  });
+
+  test('alphabetical sort uses all comparison branches', () => {
+    const obj = { b: 2, a: 1, c: 3 };
+    const result = orderByProps(obj, []);
+
+    expect(result).toEqual([
+      { key: 'a', value: 1 },
+      { key: 'b', value: 2 },
+      { key: 'c', value: 3 }
+    ]);
+  });
 });

@@ -1,6 +1,7 @@
 {
   "name": "for...in",
   "version": "1.0.0",
+  "type": "module",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -22,6 +23,7 @@
   "devDependencies": {
     "@babel/core": "^8.0.1",
     "@babel/preset-env": "^8.0.2",
+    "@eslint/js": "^10.0.1",
     "babel-loader": "^10.1.1",
     "css-loader": "^7.1.5",
     "eslint": "^10.9.1",
